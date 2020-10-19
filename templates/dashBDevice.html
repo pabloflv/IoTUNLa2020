@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{{ pageTitle }}</title>
+        <!-- Font Awesome Icons -->
+        <link rel="stylesheet" href="{{ url_for('static', filename= 'css/fontawesome-free/css/all.min.css') }}">
+        <!-- IonIcons -->
+        <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{{ url_for('static', filename= 'css/adminlte.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename= 'css/application.min.css') }}">
+        <!-- Google Font: Source Sans Pro -->
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+        <script>topicID = {{ topicID }}; lstAula = []</script>
+    </head>
+    
+    
+    <body class="hold-transition sidebar-mini" style="background-color: rgb(47, 47, 47);">
+        <div class="wrapper">
+            <!-- Navbar -->
+            <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="background-color:#000; border-bottom: 0px;">
+                <!-- Left navbar links -->
+                <ul class="navbar-nav" >
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars" style="color:white"></i></a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.navbar -->
+            
+            <!-- Main Sidebar Container -->
+            <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color:#000; height: 100%; position: fixed;">
+                <!-- Brand Logo -->
+                <a href="{{ '/' }}" class="brand-link">
+                    <span class="brand-text font-weight-dark centrado">{{ pageTitle }}</span>
+                </a>
+            
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <!-- Sidebar user panel (optional) -->
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="image">
+                            <img src="{{ url_for('static', filename= 'images/iot.jpg') }}" alt="User Image">
+                        </div>
+                    </div>
+                    
+                    <!-- Sidebar Menu -->
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                            <li class="nav-item has-treeview menu-open">
+                                <a href="#" class="nav-link active">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>
+                                        <p id="edificioName"></p>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                
+                                <ul id="lstAula" class="nav nav-treeview"></ul>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- /.sidebar-menu -->
+                </div>
+                <!-- /.sidebar -->
+            </aside>
+            
+            <!-- Main content -->
+            <section class="content" style="margin-left: 250px;">
+                <div class="container-fluid">
+                    <!-- Small boxes (Stat box) -->
+                    <!-- <div class="row"> -->
+                    <div>
+                        
+                        <!-- Cajas de datos de sensores -->
+                        <!--<div class="mdl-grid mdl-cell mdl-cell--9-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone mdl-cell--top">-->
+                        <div>
+                            <div style="display: flex;">
+                                <!-- Sensor 1 -->
+                                <div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
+                                    <div class="mdl-card mdl-shadow--2dp weather">
+                                        <div class="mdl-card__title">
+                                            <h2 class="mdl-card__title-text">Sensor 1</h2>
+                                            <div class="mdl-layout-spacer"></div>
+                                            <div class="mdl-card__subtitle-text">
+                                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                                Ubicación, Argentina
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mdl-card__supporting-text mdl-card--expand">
+                                            <p id="display_temp" class="weather-temperature">--</p>
+                                            <p style="font-size:18px;position:relative;color:#fff">Partes por millón</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Sensor 2 -->
+                                <div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
+                                    <div class="mdl-card mdl-shadow--2dp weather">
+                                        <div class="mdl-card__title">
+                                            <h2 class="mdl-card__title-text">Sensor 2</h2>
+                                            <div class="mdl-layout-spacer"></div>
+                                            <div class="mdl-card__subtitle-text">
+                                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                                Ubicación, Argentina
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mdl-card__supporting-text mdl-card--expand">
+                                            <p id="display_hum" class="weather-temperature">--</p>
+                                            <p class="weather-description">Cloudy and snow</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <!-- Grafico Sensor 1 -->
+                                <div class="col-12">
+                                    <div class="mdl-card__title">
+                                        <h2 class="mdl-card__title-text">Sensor 1</h2>
+                                    </div>
+                                    <div class="mdl-card__supporting-text" style="background-color: #363636; width: 100%;">
+                                        <canvas id="my_chart" width="300" height="300"  ></canvas>
+                                    </div>
+                                </div>
+                        
+                                <!-- Grafico Sensor 2 -->
+                                 <div class="col-12">
+                                    <div class="mdl-card mdl-shadow--2dp line-chart" style="z-index: 0;">
+                                        <div class="mdl-card__title">
+                                            <h2 class="mdl-card__title-text">Sensor 2</h2>
+                                        </div>
+                                        <div class="mdl-card__supporting-text" style="background-color: #363636; width: 100%;">
+                                            <canvas id="my_chart2" width="300" height="300"  ></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <footer class="main-footer" style="bottom: 0%; position: sticky; width: calc(100% - 250px); background-color: rgb(47, 47, 47);">
+                <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+                All rights reserved.
+                <div class="float-right d-none d-sm-inline-block">
+                    <b>Version</b> 3.0.5
+                </div>
+            </footer>
+        </div>
+        
+        <!-- jQuery -->
+        <script src="{{ url_for('static', filename= 'js/jquery.min.js') }}"></script>
+        
+        <!-- jQuery UI 1.11.4 -->
+        <script src="{{ url_for('static', filename= 'js/jquery-ui.min.js') }}"></script>
+        
+        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+        <script>$.widget.bridge('uibutton', $.ui.button)</script>
+        
+        <!-- Bootstrap 4 -->
+        <script src="{{ url_for('static', filename= 'js/bootstrap.bundle.min.js') }}"></script>
+        
+        <!--<script src="{{ url_for('static', filename= 'js/adminlte.js') }}"></script>
+        
+        <script src="{{ url_for('static', filename= 'js/demo.js') }}"></script>-->
+        <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js" integrity="sha256-qSIshlknROr4J8GMHRlW3fGKrPki733tLq+qeMCR05Q=" crossorigin="anonymous"></script>
+        
+        <!-- Charts MQTT -->
+        <script src="{{ url_for('static', filename= 'js/mqtt/mqtt.js') }}"></script>
+        
+        <!-- Carga de dispositivos en la barra de costado -->
+        <script src="{{ url_for('static', filename= 'js/base/dashBDevice.js') }}"></script>
+    
+        <script>
+            $.getJSON("/api_rest/getAllAulaFromEdificio?id=" + topicID, function(result){
+                lstAula = result._Edificio__lstAula;
+                loadEdificioAndAulas(document.getElementById("lstAula"), result);
+            });
+        </script>
+    </body>
+</html>
