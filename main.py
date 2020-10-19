@@ -6,7 +6,7 @@ import jsons, copy
 app = Flask(__name__)
 
 mapTopic = {}
-#BORRRAME ESTE COMENTARIO
+
 def loadData():
     edificio = Edificio(1, "Jose Hernandez", [])
     mapTopic[edificio.getId()] = edificio
