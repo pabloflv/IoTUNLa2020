@@ -24,3 +24,14 @@ function loadEdificioAndAulas(unorderedList, edificio)
         unorderedList.appendChild(newUnorderedListItem);
     }
 }
+function abrir(){
+   var el = document.getElementById("menuToggle");
+   console.log("Hola");
+
+
+if (el.classList.contains("menu-open")) {
+    el.classList.remove("menu-open");
+} else {
+    el.classList.add("menu-open");
+}
+}
