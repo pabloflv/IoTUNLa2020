@@ -158,13 +158,14 @@ window.setInterval(function() {
     var display_temp = document.getElementById('display_temp');
     var display_aire = document.getElementById('display_aire');
     
-    var valTemp = Math.floor((Math.random() * 20) + 20);
-    var valAire = Math.floor((Math.random() * 100) + 500);
+    $.ajax({
+        type: "POST",
+        url: "/api_rest/getUpdatedInfoOnTopic",
+        data: JSON.stringify({ topicName: 'JoseHernandez/Aula1' }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data) { display_temp.firstChild.data = data.temp; agregarValor(chart_temp, "2", data.temp); display_aire.firstChild.data = data.CO2ppm; agregarValor(chart_aire, "2", data.CO2ppm); },
+        error: function(errMsg) {/*alert(errMsg);*/}
+    });
     
-    agregarValor(chart_temp, "2", valTemp); //chart_temp.data.datasets[0].data[chart_temp.data.datasets[0].data.length - 1]);
-    //agregarValor(myChart2, "2", splitted[1]);
-    agregarValor(chart_aire, "2", valAire);
-    
-    display_temp.firstChild.data = valTemp;
-    display_aire.firstChild.data = valAire;
 }, 2000);

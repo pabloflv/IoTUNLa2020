@@ -2,7 +2,7 @@ from flask import Flask, render_template, jsonify, request
 import paho.mqtt.client as mqtt
 from model.edificio import Edificio
 from model.aula import Aula
-import jsons, copy
+import jsons, copy, random
 
 app = Flask(__name__)
 
@@ -46,5 +46,14 @@ def devicesPage():
 def getAllAulaFromEdificio():
     return jsonify(jsons.dump(mapTopic[int(request.args["id"])]))
 
+@app.route('/api_rest/getUpdatedInfoOnTopic', methods = ['POST'])
+def getUpdatedInfoOnTopic():
+    #topicName = request.get_json().get('topicName')
+    #print(topicName.split('/')[1])
+    dictRand = { 'temp': random.randint(24, 36), 'CO2ppm': random.randint(400, 800), }
+
+    return jsonify(dictRand)
+
 if __name__ == '__main__':
+    random.seed(10)
     app.run()

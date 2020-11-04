@@ -30,8 +30,8 @@ function abrir(){
 
 
 if (el.classList.contains("menu-open")) {
-    el.classList.remove("menu-open");
-} else {
-    el.classList.add("menu-open");
-}
+        el.classList.remove("menu-open");
+    } else {
+        el.classList.add("menu-open");
+    }
 }
