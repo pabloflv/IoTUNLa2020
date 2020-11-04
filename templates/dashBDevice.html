@@ -83,17 +83,17 @@
                                 <div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
                                     <div class="mdl-card mdl-shadow--2dp weather">
                                         <div class="mdl-card__title">
-                                            <h2 class="mdl-card__title-text">Sensor 1</h2>
+                                            <h2 class="mdl-card__title-text">Temperatura</h2>
                                             <div class="mdl-layout-spacer"></div>
                                             <div class="mdl-card__subtitle-text">
                                                 <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                                Ubicación, Argentina
+                                                Aula 1
                                             </div>
                                         </div>
                                         
                                         <div class="mdl-card__supporting-text mdl-card--expand">
                                             <p id="display_temp" class="weather-temperature">--</p>
-                                            <p style="font-size:18px;position:relative;color:#fff">Partes por millón</p>
+                                            <p style="font-size:18px;position:relative;color:#fff">° Celsius</p>
                                         </div>
                                     </div>
                                 </div>
@@ -102,17 +102,58 @@
                                 <div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
                                     <div class="mdl-card mdl-shadow--2dp weather">
                                         <div class="mdl-card__title">
-                                            <h2 class="mdl-card__title-text">Sensor 2</h2>
+                                            <h2 class="mdl-card__title-text">CO2 Aire</h2>
                                             <div class="mdl-layout-spacer"></div>
                                             <div class="mdl-card__subtitle-text">
                                                 <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                                Ubicación, Argentina
+                                                Aula 1
                                             </div>
                                         </div>
                                         
                                         <div class="mdl-card__supporting-text mdl-card--expand">
-                                            <p id="display_hum" class="weather-temperature">--</p>
-                                            <p class="weather-description">Cloudy and snow</p>
+                                            <p id="display_aire" class="weather-temperature">--</p>
+                                            <p style="font-size:18px;position:relative;color:#fff">Partes por millón de CO2</p>
+                                            <!-- <p class="weather-description">Partes por millón de CO2</p> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mdl-cell mdl-cell--4-col-desktop mdl-cell--4-col-tablet mdl-cell--2-col-phone">
+                                    <div class="mdl-card mdl-shadow--2dp trending">
+                                        <div class="mdl-card__title">
+                                            <h2 class="mdl-card__title-text">Actuadores</h2>
+                                        </div>
+                                        <div class="mdl-card__supporting-text">
+                                            <ul class="mdl-list">
+                                                <li class="mdl-list__item">
+                                                    <span class="mdl-list__item-primary-content list__item-text">Actuador 1</span>
+                                                    <span class="mdl-list__item-secondary-content">
+                                                        <!-- SWITCH-->
+                                                        <label class="switch">
+                                                            <input onchange="sw1_change()" type="checkbox" id="display_sw1">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </span>
+                                                </li>
+
+                                                <li class="mdl-list__item list__item--border-top">
+                                                    <span class="mdl-list__item-primary-content list__item-text">Actuador 2</span>
+                                                    <span class="mdl-list__item-secondary-content">
+                                                        <!-- SWITCH-->
+                                                        <label class="switch">
+                                                            <input onchange="sw2_change()" type="checkbox" id="display_sw2">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </span>
+                                                </li>
+                                                
+                                                <li class="mdl-list__item list__item--border-top">
+                                                    <span class="mdl-list__item-primary-content list__item-text">Actuador 3</span>
+                                                    <span class="mdl-list__item-secondary-content">
+                                                        <input onchange="slider_change()" id="display_slider" class="mdl-slider mdl-js-slider slider--colored-light-blue" type="range" min="0" max="254" value="0" tabindex="0">
+                                                    </span>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -125,7 +166,7 @@
                                         <h2 class="mdl-card__title-text">Sensor 1</h2>
                                     </div>
                                     <div class="mdl-card__supporting-text" style="background-color: #363636; width: 100%;">
-                                        <canvas id="my_chart" width="300" height="300"  ></canvas>
+                                        <canvas id="chart_temp" width="300" height="300"  ></canvas>
                                     </div>
                                 </div>
                         
@@ -136,7 +177,7 @@
                                             <h2 class="mdl-card__title-text">Sensor 2</h2>
                                         </div>
                                         <div class="mdl-card__supporting-text" style="background-color: #363636; width: 100%;">
-                                            <canvas id="my_chart2" width="300" height="300"  ></canvas>
+                                            <canvas id="chart_aire" width="300" height="300"  ></canvas>
                                         </div>
                                     </div>
                                 </div>

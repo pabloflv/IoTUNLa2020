@@ -1,6 +1,6 @@
-var ctx = document.getElementById('my_chart').getContext('2d');
-var ctx2 = document.getElementById('my_chart2').getContext('2d');
-var myChart = new Chart(ctx, {
+var ctx = document.getElementById('chart_temp').getContext('2d');
+var ctx2 = document.getElementById('chart_aire').getContext('2d');
+var chart_temp = new Chart(ctx, {
     type: 'line',
     data: {
         labels: ['|','|', '|', '|','|', '|', '|','|', '|', '|','|', '|','|','|', '|', '|','|', '|', '|','|', '|', '|','|', '|', '|','|', '|', '|','|', '|', '|','|', '|', '|', '|', '|', '|', '|', '|', '|'],
@@ -27,7 +27,7 @@ var myChart = new Chart(ctx, {
         }
     }
 });
-var myChart2 = new Chart(ctx2, {
+var chart_aire = new Chart(ctx2, {
     type: 'line',
     data: {
         labels: ['|','|', '|', '|','|', '|', '|','|', '|', '|','|', '|','|','|', '|', '|','|', '|', '|','|', '|', '|','|', '|', '|','|', '|', '|','|', '|', '|','|', '|', '|', '|', '|', '|', '|', '|', '|'],
@@ -105,7 +105,7 @@ client.on('message', (topic, message) => {
     var switch2 = splitted[3];
     agregarValor(myChart, "2", splitted[0]);
     agregarValor(myChart2, "2", splitted[1]);
-    $("#display_hum").html(hum);
+    $("#display_aire").html(hum);
     $("#display_temp").html(temp);
     
     document.getElementById('display_slider').value = splitted[4];
@@ -153,8 +153,18 @@ function slider_change(){
     value = $('#display_slider').val();
     client.publish(device_topic + 'actions/slider',value);
 }
-/*
+
 window.setInterval(function() {
-    agregarValor(myChart, "2", myChart.data.datasets[0].data[myChart.data.datasets[0].data.length - 1]);
+    var display_temp = document.getElementById('display_temp');
+    var display_aire = document.getElementById('display_aire');
+    
+    var valTemp = Math.floor((Math.random() * 20) + 20);
+    var valAire = Math.floor((Math.random() * 100) + 500);
+    
+    agregarValor(chart_temp, "2", valTemp); //chart_temp.data.datasets[0].data[chart_temp.data.datasets[0].data.length - 1]);
     //agregarValor(myChart2, "2", splitted[1]);
-}, 500);*/
+    agregarValor(chart_aire, "2", valAire);
+    
+    display_temp.firstChild.data = valTemp;
+    display_aire.firstChild.data = valAire;
+}, 2000);

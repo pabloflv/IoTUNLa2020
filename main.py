@@ -1,4 +1,5 @@
 from flask import Flask, render_template, jsonify, request
+import paho.mqtt.client as mqtt
 from model.edificio import Edificio
 from model.aula import Aula
 import jsons, copy

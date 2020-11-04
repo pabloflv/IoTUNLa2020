@@ -1,5 +1,5 @@
 class Dato:
-    def __init__(self, id: int, dato: str, aula: int):
+    def __init__(self, id: int, dato: int, aula: int):
         self.__id = id
         self.__dato = dato
         self.__aula = aula
@@ -10,14 +10,14 @@ class Dato:
     def setId(self, id):
         self.__id = id
 
-    def getNombre(self):
-        return self.__nombre
+    def getDato(self):
+        return self.__dato
 
-    def setNombre(self, nombre):
-        self.__nombre = nombre
+    def setDato(self, dato):
+        self.__dato = dato
 
-    def getEdificio(self):
-        return self.__edificio
+    def getAula(self):
+        return self.__aula
 
-    def setEdificio(self, edificio):
-        self.__edificio = edificio
+    def setAula(self, aula):
+        self.__aula = aula
