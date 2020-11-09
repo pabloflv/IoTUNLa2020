@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Agregar datos</title>
+	</head>
+	
+	<body>
+		<!-- jQuery -->
+		<script src="{{ url_for('static', filename= 'js/jquery.min.js') }}"></script>
+		
+		<!-- jQuery UI 1.11.4 -->
+		<script src="{{ url_for('static', filename= 'js/jquery-ui.min.js') }}"></script>
+		
+		<script>
+			function addDato() {
+				$.ajax({
+					type: "POST",
+					url: "/api_rest/addDato",
+					data: JSON.stringify({ topicName: 'ScalabriniOrtiz/Aula2', tipo: 'Temperatura', dato: (Math.floor(Math.random() * 15) + 20), }),
+					contentType: "application/json; charset=utf-8",
+					dataType: "json",
+					success: function(data) { console.log(JSON.stringify(data)); },
+					error: function(errMsg) { /* alert(errMsg); */ }
+				});
+			}
+		</script>
+		
+		<button type="button" onclick="addDato();">Agregar dato</button> 
+    </body>
+</html>

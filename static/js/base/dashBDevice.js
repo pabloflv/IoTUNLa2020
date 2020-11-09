@@ -24,6 +24,7 @@ function loadEdificioAndAulas(unorderedList, edificio)
         unorderedList.appendChild(newUnorderedListItem);
     }
 }
+
 function abrir(){
    var el = document.getElementById("menuToggle");
    console.log("Hola");

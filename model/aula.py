@@ -1,8 +1,8 @@
 class Aula:
-    def __init__(self, id: int, nombre: str, edificio: int):
+    def __init__(self, id: int, nombre: str, lstDato: list):
         self.__id = id
         self.__nombre = nombre
-        self.__edificio = edificio
+        self.__lstDato = lstDato
 
     def getId(self):
         return self.__id
@@ -16,8 +16,8 @@ class Aula:
     def setNombre(self, nombre):
         self.__nombre = nombre
 
-    def getEdificio(self):
-        return self.__edificio
+    def getDato(self):
+        return self.__lstDato
 
-    def setEdificio(self, edificio):
-        self.__edificio = edificio
+    def setDato(self, lstDato):
+        self.__lstDato = lstDato

@@ -1,8 +1,11 @@
+import datetime
+
 class Dato:
-    def __init__(self, id: int, dato: int, aula: int):
+    def __init__(self, id: int, dato: str, tipo: str, fecha: datetime.datetime):
         self.__id = id
         self.__dato = dato
-        self.__aula = aula
+        self.__tipo = tipo
+        self.__fecha = fecha
 
     def getId(self):
         return self.__id
@@ -16,8 +19,14 @@ class Dato:
     def setDato(self, dato):
         self.__dato = dato
 
-    def getAula(self):
-        return self.__aula
+    def getTipo(self):
+        return self.__tipo
 
-    def setAula(self, aula):
-        self.__aula = aula
+    def setTipo(self, tipo):
+        self.__tipo = tipo
+
+    def getFecha(self):
+        return self.__fecha
+
+    def setFecha(self, fecha):
+        self.__fecha = fecha

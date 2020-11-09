@@ -1,5 +1,5 @@
 class Edificio:
-    def __init__(self, id: int, nombre: str, lstAula: []):
+    def __init__(self, id: int, nombre: str, lstAula: list):
         self.__id = id
         self.__nombre = nombre
         self.__lstAula = lstAula
