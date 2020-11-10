@@ -13,24 +13,24 @@ def getAula(idAula: int):
     for fila in dbDict['cursor']:
         aula = __getDictValue(dictAula, fila[0])
         if aula is None:
-            aula = Aula(fila[0], fila[1], list())
+            aula = Aula(fila[0], fila[1], "", list())
             dictAula[aula.getId()] = aula
 
     dao.closeDBConnection(dbDict)
     return dictAula
 
 
-def getAulaByNombre(nombreEdificio: str, nombreAula: str):
+def getAulaByTopic(topicEdificio: str, topicAula: str):
     dbDict = dao.openDBConnection()
 
     query = "SELECT Aula.idAula, Aula.nombre FROM Edificio " \
             "INNER JOIN Aula ON Edificio.idEdificio = Aula.idEdificio " \
-            "WHERE Edificio.nombre = %s AND Aula.nombre = %s " \
+            "WHERE Edificio.topic = %s AND Aula.topic = %s " \
             "ORDER BY Edificio.idEdificio ASC, Aula.idAula ASC " \
             "LIMIT 1"
-    dbDict['cursor'].execute(query, (nombreEdificio, nombreAula))
+    dbDict['cursor'].execute(query, (topicEdificio, topicAula))
 
-    aula = Aula(0, "", list())
+    aula = Aula(0, "", "", list())
     for fila in dbDict['cursor']:
         aula.setId(fila[0])
         aula.setNombre(fila[1])
