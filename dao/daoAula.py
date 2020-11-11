@@ -38,6 +38,18 @@ def getAulaByTopic(topicEdificio: str, topicAula: str):
     dao.closeDBConnection(dbDict)
     return aula
 
+def addAula(nombre: str, topic: str, idEdificio: int):
+    dbDict = dao.openDBConnection()
+
+    query = "INSERT INTO Aula (nombre, topic, idEdificio) VALUES (%s, %s, %s);"
+    dbDict['cursor'].execute(query, (nombre, topic, idEdificio))
+    dbDict['db'].commit()
+
+    aula = Aula(dbDict['cursor'].lastrowid, nombre, topic, list())
+    dao.closeDBConnection(dbDict)
+
+    return aula
+
 def __getDictValue(dictionary: dict, index: int):
     try:
         return dictionary[index]

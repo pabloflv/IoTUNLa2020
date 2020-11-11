@@ -50,9 +50,27 @@
                     <!-- Sidebar Menu -->
                     <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                            <li class="nav-item">
+                                <a href="/" class="nav-link">
+                                    <i class="nav-icon fas fa-home"></i>
+                                    <p>Dashboard General</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" onclick="window.location.href = '/aula/alta?idEdificio=' + topicID">
+                                    <i class="nav-icon fas fa-tools"></i>
+                                    <p>Alta Aula</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-tools"></i>
+                                    <p>Modificación Aula</p>
+                                </a>
+                            </li>
                             <li class="nav-item has-treeview menu-open" id="menuToggle">
                                 <a href="#" class="nav-link active" onClick="abrir();">
-                                    <i class="nav-icon fas fa-users"></i>
+                                    <i class="nav-icon fas fa-building"></i>
                                     <p>
                                         <p id="edificioName"></p>
                                         <i class="right fas fa-angle-left"></i>
@@ -114,7 +132,6 @@
                                         <div class="mdl-card__supporting-text mdl-card--expand">
                                             <p id="display_aire" class="weather-temperature">--</p>
                                             <p style="font-size:18px;position:relative;color:#fff">Partes por millón de CO2</p>
-                                            <!-- <p class="weather-description">Partes por millón de CO2</p> -->
                                         </div>
                                     </div>
                                 </div>

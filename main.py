@@ -7,11 +7,13 @@ from dao import daoDato, daoAula
 from controller.dashBEdificio import dashBEdificio
 from controller.dashBAula import dashBAula
 from controller.ctrlEdificio import ctrlEdificio
+from controller.ctrlAula import ctrlAula
 
 app = Flask(__name__)
 app.register_blueprint(dashBEdificio)
 app.register_blueprint(dashBAula)
 app.register_blueprint(ctrlEdificio)
+app.register_blueprint(ctrlAula)
 
 @app.route('/test', methods = ['GET'])
 def test():

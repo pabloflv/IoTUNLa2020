@@ -9,7 +9,10 @@ ctrlEdificio = Blueprint('ctrlEdificio', __name__)
 def paginaAltaEdificio():
     return render_template('altaEdificio.html', pageTitle='UNLa IoT')
 
-
 @ctrlEdificio.route('/api_rest/addEdificio', methods=['POST'])
 def addEdificio():
     return jsonify(jsons.dump(daoEdificio.addEdificio(request.get_json().get('nombre'), request.get_json().get('topic'))))
+
+@ctrlEdificio.route('/api_rest/getEdificio', methods=['GET'])
+def getEdificio():
+    return jsonify(jsons.dump(daoEdificio.getEdificio(request.args["idEdificio"])))

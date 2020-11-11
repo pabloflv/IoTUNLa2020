@@ -5,20 +5,16 @@ from dao import dao
 def getEdificio(idEdificio: int):
     dbDict = dao.openDBConnection()
 
-    query = "SELECT Edificio.idEdificio, Edificio.nombre FROM Edificio " \
+    query = "SELECT Edificio.idEdificio, Edificio.nombre, Edificio.topic FROM Edificio " \
             "WHERE Edificio.idEdificio = %s " \
             "ORDER BY Edificio.idEdificio ASC"
-    dbDict['cursor'].execute(query, (idEdificio))
+    dbDict['cursor'].execute(query, (idEdificio, ))
 
-    dictEdificio = {}
-    for fila in dbDict['cursor']:
-        edificio = __getDictValue(dictEdificio, fila[0])
-        if edificio is None:
-            edificio = Edificio(fila[0], fila[1], "", list())
-            dictEdificio[edificio.getId()] = edificio
+    fila = dbDict['cursor'].fetchone()
+    edificio = Edificio(fila[0], fila[1], fila[2], list())
 
     dao.closeDBConnection(dbDict)
-    return dictEdificio
+    return edificio
 
 def getEdificioByTopic(topic: str):
     dbDict = dao.openDBConnection()
