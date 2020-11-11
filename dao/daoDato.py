@@ -41,7 +41,7 @@ def getLatestDatoFromAula(idEdificio: int, idAula: int, tipo: str):
     query = "SELECT Dato.idDato, Dato.fecha, Dato.tipo, Dato.dato FROM Aula " \
             "INNER JOIN Dato ON Aula.idAula = Dato.idAula " \
             "WHERE Aula.idEdificio = %s AND Aula.idAula = %s AND Dato.tipo = %s " \
-            "ORDER BY Dato.fecha ASC " \
+            "ORDER BY Dato.fecha DESC " \
             "LIMIT 36"
     dbDict['cursor'].execute(query, (idEdificio, idAula, tipo))
 

@@ -83,7 +83,7 @@ function actualizarDatos() {
         dataType: "json",
         success: function(data) {
             if (data.length > 0) {
-                display_temp.firstChild.data = data[data.length - 1]._Dato__dato;
+                display_temp.firstChild.data = data[0]._Dato__dato;
                 actualizarCuadro(chart_temp, "2", data);
             }
             else {
@@ -102,7 +102,7 @@ function actualizarDatos() {
         dataType: "json",
         success: function(data) {
             if (data.length > 0) {
-                display_aire.firstChild.data = data[data.length - 1]._Dato__dato;
+                display_aire.firstChild.data = data[0]._Dato__dato;
                 actualizarCuadro(chart_aire, "2", data);
             }
             else {

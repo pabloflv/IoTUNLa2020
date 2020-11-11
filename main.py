@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify, request
-import paho.mqtt.client as mqtt
-import jsons, random
+from flask_mqtt import Mqtt
+import jsons, random, datetime, math
 
 from dao import daoDato, daoAula
 
@@ -15,6 +15,14 @@ app.register_blueprint(dashBAula)
 app.register_blueprint(ctrlEdificio)
 app.register_blueprint(ctrlAula)
 
+app.config['MQTT_BROKER_URL'] = '35.199.99.14'
+app.config['MQTT_BROKER_PORT'] = 1883
+app.config['MQTT_CLIENT_ID'] = 'server-flask'
+app.config['MQTT_USERNAME'] = ''
+app.config['MQTT_PASSWORD'] = ''
+app.config['MQTT_REFRESH_TIME'] = 1.0  # refresh time in seconds
+mqtt = Mqtt(app)
+
 @app.route('/test', methods = ['GET'])
 def test():
     daoDato.getAllDatoFromAula(2, 5)
@@ -28,6 +36,27 @@ def addDato():
 
     aula = daoAula.getAulaByTopic(topicArray[0], topicArray[1])
     return jsonify(jsons.dump(daoDato.addDato(request.get_json().get('tipo'), request.get_json().get('dato'), aula.getId())))
+
+@mqtt.on_connect()
+def handle_connect(client, userdata, flags, rc):
+    mqtt.subscribe('UNLa/Hernandez/Aula1/#')
+
+@mqtt.on_message()
+def handle_mqtt_message(client, userdata, message):
+    if (message.topic == "UNLa/Hernandez/Aula1/temp" or message.topic == "UNLa/Hernandez/Aula1/co2"):
+        if (not math.isnan(float(message.payload.decode()))):
+            topicArray = message.topic.split('/')
+            print("Tipo: " + topicArray[3] + " - " + "Valor: " + message.payload.decode());
+
+            tipo = ""
+            if (topicArray[3] == "temp"):
+                tipo = "Temperatura"
+
+            if (topicArray[3] == "co2"):
+                tipo = "Aire"
+
+            aula = daoAula.getAulaByTopic("JoseHernandez", "Aula1")
+            daoDato.addDato(tipo, message.payload.decode(), aula.getId())
 
 if __name__ == '__main__':
     random.seed(10)

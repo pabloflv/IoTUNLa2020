@@ -123,10 +123,7 @@
             function submitForm() {
                 var txtNombreEdificio = document.getElementById("txtNombreEdificio");
                 var txtTopicEdificio = document.getElementById("txtTopicEdificio");
-                
                 var newEdificio = { nombre: txtNombreEdificio.value, topic: txtTopicEdificio.value };
-                
-                console.log(newEdificio);
                 
                 $.ajax({
                     type: "POST",
@@ -134,8 +131,8 @@
                     data: JSON.stringify(newEdificio),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    success: function(data) { console.log(data); },
-                    error: function(errMsg) { /* alert(errMsg); */ }
+                    success: function(data) { window.location.href = '/' },
+                    error: function(errMsg) { alert(errMsg); }
                 });
             }
         </script>

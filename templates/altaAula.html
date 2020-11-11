@@ -125,10 +125,7 @@
             function submitForm() {
                 var txtNombreAula = document.getElementById("txtNombreAula");
                 var txtTopicAula = document.getElementById("txtTopicAula");
-                
                 var newAula = { nombre: txtNombreAula.value, topic: txtTopicAula.value, idEdificio: edificio._Edificio__id };
-                
-                console.log(newAula);
                 
                 $.ajax({
                     type: "POST",
@@ -136,8 +133,8 @@
                     data: JSON.stringify(newAula),
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    success: function(data) { console.log(data); },
-                    error: function(errMsg) { /*alert(errMsg);*/ }
+                    success: function(data) { window.location.href = '/devices?id=' + edificio._Edificio__id },
+                    error: function(errMsg) { alert(errMsg); }
                 });
             }
             
