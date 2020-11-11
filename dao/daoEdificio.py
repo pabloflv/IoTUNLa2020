@@ -56,7 +56,7 @@ def getEdificioWithAllAula(idEdificio: int):
 def getAllEdificio():
     dbDict = dao.openDBConnection()
 
-    query = "SELECT Edificio.idEdificio, Edificio.nombre FROM Edificio " \
+    query = "SELECT Edificio.idEdificio, Edificio.nombre, Edificio.topic FROM Edificio " \
             "ORDER BY Edificio.idEdificio ASC"
     dbDict['cursor'].execute(query)
 
@@ -64,7 +64,7 @@ def getAllEdificio():
     for fila in dbDict['cursor']:
         edificio = __getDictValue(dictEdificio, fila[0])
         if edificio is None:
-            edificio = Edificio(fila[0], fila[1], "", list())
+            edificio = Edificio(fila[0], fila[1], fila[2], list())
             dictEdificio[edificio.getId()] = edificio
 
     dao.closeDBConnection(dbDict)

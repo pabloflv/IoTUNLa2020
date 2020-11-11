@@ -39,24 +39,15 @@ def addDato():
 
 @mqtt.on_connect()
 def handle_connect(client, userdata, flags, rc):
-    mqtt.subscribe('UNLa/Hernandez/Aula1/#')
+    mqtt.subscribe('UNLa/#')
 
 @mqtt.on_message()
 def handle_mqtt_message(client, userdata, message):
-    if (message.topic == "UNLa/Hernandez/Aula1/temp" or message.topic == "UNLa/Hernandez/Aula1/co2"):
+    topicArray = message.topic.split('/')
+    if (topicArray[3] == "Temperatura" or topicArray[3] == "Aire"):
         if (not math.isnan(float(message.payload.decode()))):
-            topicArray = message.topic.split('/')
-            print("Tipo: " + topicArray[3] + " - " + "Valor: " + message.payload.decode());
-
-            tipo = ""
-            if (topicArray[3] == "temp"):
-                tipo = "Temperatura"
-
-            if (topicArray[3] == "co2"):
-                tipo = "Aire"
-
-            aula = daoAula.getAulaByTopic("JoseHernandez", "Aula1")
-            daoDato.addDato(tipo, message.payload.decode(), aula.getId())
+            aula = daoAula.getAulaByTopic(topicArray[1], topicArray[2])
+            daoDato.addDato(topicArray[3], message.payload.decode(), aula.getId())
 
 if __name__ == '__main__':
     random.seed(10)
