@@ -35,6 +35,26 @@ def addDato(tipo: str, dato: str, idAula:int):
 
     return dato
 
+def getLatestDatoFromAula(idEdificio: int, idAula: int, tipo: str):
+    dbDict = dao.openDBConnection()
+
+    query = "SELECT Dato.idDato, Dato.fecha, Dato.tipo, Dato.dato FROM Aula " \
+            "INNER JOIN Dato ON Aula.idAula = Dato.idAula " \
+            "WHERE Aula.idEdificio = %s AND Aula.idAula = %s AND Dato.tipo = %s " \
+            "ORDER BY Dato.fecha ASC " \
+            "LIMIT 36"
+    dbDict['cursor'].execute(query, (idEdificio, idAula, tipo))
+
+    dictDato = {}
+    for fila in dbDict['cursor']:
+        dato = __getDictValue(dictDato, fila[0])
+        if dato is None:
+            dato = Dato(fila[0], fila[3], fila[2], fila[1])
+            dictDato[dato.getId()] = dato
+
+    dao.closeDBConnection(dbDict)
+    return dictDato
+
 def __getDictValue(dictionary: dict, index: int):
     try:
         return dictionary[index]

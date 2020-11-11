@@ -6,10 +6,12 @@ from dao import daoDato, daoAula
 
 from controller.dashBEdificio import dashBEdificio
 from controller.dashBAula import dashBAula
+from controller.ctrlEdificio import ctrlEdificio
 
 app = Flask(__name__)
 app.register_blueprint(dashBEdificio)
 app.register_blueprint(dashBAula)
+app.register_blueprint(ctrlEdificio)
 
 @app.route('/test', methods = ['GET'])
 def test():
@@ -22,7 +24,7 @@ def addDato():
     topicName = request.get_json().get('topicName')
     topicArray = topicName.split('/')
 
-    aula = daoAula.getAulaByNombre(topicArray[0], topicArray[1])
+    aula = daoAula.getAulaByTopic(topicArray[0], topicArray[1])
     return jsonify(jsons.dump(daoDato.addDato(request.get_json().get('tipo'), request.get_json().get('dato'), aula.getId())))
 
 if __name__ == '__main__':

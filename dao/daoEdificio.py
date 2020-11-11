@@ -40,18 +40,18 @@ def getEdificioByTopic(topic: str):
 def getEdificioWithAllAula(idEdificio: int):
     dbDict = dao.openDBConnection()
 
-    query = "SELECT Edificio.idEdificio, Edificio.nombre, Aula.idAula, Aula.nombre FROM Edificio " \
+    query = "SELECT Edificio.idEdificio, Edificio.nombre, Edificio.topic, Aula.idAula, Aula.nombre, Aula.topic FROM Edificio " \
             "INNER JOIN Aula ON Edificio.idEdificio = Aula.idEdificio " \
             "WHERE Edificio.idEdificio = %s " \
             "ORDER BY Edificio.idEdificio ASC"
     dbDict['cursor'].execute(query, (idEdificio, ))
 
     primeraFila = dbDict['cursor'].fetchone()
-    edificio = Edificio(primeraFila[0], primeraFila[1], "", list())
-    edificio.getLstAula().append(Aula(primeraFila[2], primeraFila[3], "", list()))
+    edificio = Edificio(primeraFila[0], primeraFila[1], primeraFila[2], list())
+    edificio.getLstAula().append(Aula(primeraFila[3], primeraFila[4], primeraFila[5], list()))
 
     for fila in dbDict['cursor']:
-        aula = Aula(fila[2], fila[3], "", list())
+        aula = Aula(fila[3], fila[4], fila[5], list())
         edificio.getLstAula().append(aula)
 
     dao.closeDBConnection(dbDict)

@@ -1,8 +1,7 @@
 from flask import render_template, jsonify, request, Blueprint
-import jsons, random
+import jsons
 
-from dao import daoAula
-from dao import daoEdificio
+from dao import daoEdificio, daoAula, daoDato
 
 dashBAula = Blueprint('dashBAula', __name__)
 
@@ -17,7 +16,16 @@ def getAllAulaFromEdificio():
 
 @dashBAula.route('/api_rest/getUpdatedInfoOnTopic', methods = ['POST'])
 def getUpdatedInfoOnTopic():
+    topicArray = request.get_json().get('topicName').split('/')
+    tipo = request.get_json().get('tipo')
+    retLst = list()
 
-    dictRand = { 'temp': random.randint(24, 36), 'CO2ppm': random.randint(400, 800), }
+    edificio = daoEdificio.getEdificioByTopic(topicArray[0])
+    aula = daoAula.getAulaByTopic(topicArray[0], topicArray[1])
 
-    return jsonify(dictRand)
+    dictDato = daoDato.getLatestDatoFromAula(edificio.getId(), aula.getId(), tipo)
+
+    for idDato in dictDato:
+        retLst.append(jsons.dump(dictDato[idDato]))
+
+    return jsonify(jsons.dump(retLst))

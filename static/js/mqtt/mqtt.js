@@ -55,17 +55,70 @@ var chart_aire = new Chart(ctx2, {
     }
 });
 
-function agregarValor(chart, etiqueta, valor) {
-    if(chart.data.datasets[0].data.length ==40){
+function actualizarCuadro(chart, etiqueta, arrValor) {
+    for (i = 0; i < arrValor.length && i < 36; i++) {
         chart.data.datasets[0].data.shift();
+        chart.data.datasets[0].data.push(arrValor[i]._Dato__dato);
     }
     
-    chart.data.datasets[0].data.push(valor);
+    if (i < 36) {
+        for (i = i; i < 36; i++) {
+            chart.data.datasets[0].data.shift();
+            chart.data.datasets[0].data.push(0);
+        }
+    }
     
     chart.update();
 }
 
-const options = {
+function actualizarDatos() { 
+    var display_temp = document.getElementById('display_temp');
+    var display_aire = document.getElementById('display_aire');
+    
+    $.ajax({
+        type: "POST",
+        url: "/api_rest/getUpdatedInfoOnTopic",
+        data: JSON.stringify({ topicName: currentAulaTopic, tipo: 'Temperatura', }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data) {
+            if (data.length > 0) {
+                display_temp.firstChild.data = data[data.length - 1]._Dato__dato;
+                actualizarCuadro(chart_temp, "2", data);
+            }
+            else {
+                display_temp.firstChild.data = '--';
+                actualizarCuadro(chart_temp, "2", data);
+            }
+        },
+        error: function(errMsg) {/*alert(errMsg);*/}
+    });
+    
+    $.ajax({
+        type: "POST",
+        url: "/api_rest/getUpdatedInfoOnTopic",
+        data: JSON.stringify({ topicName: currentAulaTopic, tipo: 'Aire', }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data) {
+            if (data.length > 0) {
+                display_aire.firstChild.data = data[data.length - 1]._Dato__dato;
+                actualizarCuadro(chart_aire, "2", data);
+            }
+            else {
+                display_aire.firstChild.data = '--';
+                actualizarCuadro(chart_aire, "2", data);
+            }
+        },
+        error: function(errMsg) {/*alert(errMsg);*/}
+    });
+}
+
+window.setInterval(function() {
+    actualizarDatos();
+}, 4000);
+
+/*const options = {
     connectTimeout: 1000,
     // Authentication
     clientId: 'mqttjs_bcbc4f2991'+ Math.floor((Math.random() * 1000000) + 1),
@@ -73,10 +126,10 @@ const options = {
     password: '',
     keepalive: 60,
     clean: true,
-}
+}*/
 
 // WebSocket connect url
-const WebSocket_URL = 'ws://35.199.99.14:8083/mqtt'
+/*const WebSocket_URL = 'ws://35.199.99.14:8083/mqtt'
 const client = mqtt.connect(WebSocket_URL, options)
 
 var device_topic = 'sensores&actuadores';
@@ -91,9 +144,9 @@ client.on('connect', () => {
         }
         
     })
-})
+})*/
 
-client.on('message', (topic, message) => {
+/*client.on('message', (topic, message) => {
     console.log('Msg from topic: ', topic, ' ----> ', message.toString());
     
     
@@ -152,20 +205,4 @@ function sw2_change(){
 function slider_change(){
     value = $('#display_slider').val();
     client.publish(device_topic + 'actions/slider',value);
-}
-
-window.setInterval(function() {
-    var display_temp = document.getElementById('display_temp');
-    var display_aire = document.getElementById('display_aire');
-    
-    $.ajax({
-        type: "POST",
-        url: "/api_rest/getUpdatedInfoOnTopic",
-        data: JSON.stringify({ topicName: 'JoseHernandez/Aula1' }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function(data) { display_temp.firstChild.data = data.temp; agregarValor(chart_temp, "2", data.temp); display_aire.firstChild.data = data.CO2ppm; agregarValor(chart_aire, "2", data.CO2ppm); },
-        error: function(errMsg) {/*alert(errMsg);*/}
-    });
-    
-}, 2000);
+}*/
