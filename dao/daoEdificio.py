@@ -74,6 +74,18 @@ def getAllEdificio():
     dao.closeDBConnection(dbDict)
     return dictEdificio
 
+def addEdificio(nombre: str, topic:str):
+    dbDict = dao.openDBConnection()
+
+    query = "INSERT INTO Edificio (nombre, topic) VALUES (%s, %s);"
+    dbDict['cursor'].execute(query, (nombre, topic))
+    dbDict['db'].commit()
+
+    edificio = Edificio(dbDict['cursor'].lastrowid, nombre, topic, list())
+    dao.closeDBConnection(dbDict)
+
+    return edificio
+
 def __getDictValue(dictionary: dict, index: int):
     try:
         return dictionary[index]

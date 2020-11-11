@@ -1,10 +1,9 @@
-from flask import render_template, jsonify, Blueprint
+from flask import render_template, jsonify, request, Blueprint
 import jsons
 
 from dao import daoEdificio
 
 ctrlEdificio = Blueprint('ctrlEdificio', __name__)
-
 
 @ctrlEdificio.route('/edificio/alta', methods=['GET'])
 def paginaAltaEdificio():
@@ -13,4 +12,4 @@ def paginaAltaEdificio():
 
 @ctrlEdificio.route('/api_rest/addEdificio', methods=['POST'])
 def addEdificio():
-    return 0;
+    return jsonify(jsons.dump(daoEdificio.addEdificio(request.get_json().get('nombre'), request.get_json().get('topic'))))
