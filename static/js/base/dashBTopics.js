@@ -1,4 +1,4 @@
-function loadTopics(section, topics, tableRows)
+function loadTopics(section, topics)
 {
     var topicsTable = document.createElement("table");
     var tableHeader = document.createElement("thead");
@@ -66,23 +66,31 @@ function loadTopics(section, topics, tableRows)
         td.appendChild(text);
         
         td = document.createElement("td");
+        td.setAttribute("style","text-align: center;");
         tableRow.appendChild(td);
+        
         button = document.createElement("button");
         button.setAttribute("type", "button");
         button.setAttribute("href", "#");
         button.setAttribute("onclick", "window.location.href = '/devices?id=" + topics[i]._Edificio__id + "';");
+        button.setAttribute("class", "btn btn-secondary mr-4");
         button.textContent = "Ir al Dashboard";
         td.appendChild(button);
+        
         button = document.createElement("button");
         button.setAttribute("type", "button");
+        button.setAttribute("href", "#");
+        button.setAttribute("onclick", "loadMdlUpdateValues(" + topics[i]._Edificio__id + ");$('#mdlUpdate').modal('show');");
+        button.setAttribute("class", "btn btn-secondary ml-4 mr-4");
         button.textContent = "Modificar";
         td.appendChild(button);
+        
         button = document.createElement("button");
         button.setAttribute("type", "button");
+        button.setAttribute("href", "#");
+        button.setAttribute("class", "btn btn-secondary ml-4");
         button.textContent = "Eliminar";
         td.appendChild(button);
-        
-        tableRows.push(tableRow);
         
         $(tableRow).mouseenter(function() {
             this.setAttribute("style", "background-color: rgba(255, 255, 255, .15);");
@@ -92,4 +100,11 @@ function loadTopics(section, topics, tableRows)
             this.setAttribute("style", "");
         });
     }
+}
+
+function loadMdlUpdateValues(idEdificio) {
+    var edificio = dictEdificio[idEdificio];
+    
+    document.getElementById('txtNombreEdificio').value = edificio._Edificio__nombre;
+    document.getElementById('txtTopicEdificio').value = edificio._Edificio__topic;
 }
