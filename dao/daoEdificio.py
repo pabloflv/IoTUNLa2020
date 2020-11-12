@@ -1,6 +1,7 @@
 from model.edificio import Edificio
 from model.aula import Aula
 from dao import dao
+from dao import daoAula
 
 def getEdificio(idEdificio: int):
     dbDict = dao.openDBConnection()
@@ -81,6 +82,36 @@ def addEdificio(nombre: str, topic:str):
     dao.closeDBConnection(dbDict)
 
     return edificio
+
+def modEdificio(edificio: Edificio):
+    dbDict = dao.openDBConnection()
+
+    query = "UPDATE Edificio SET Edificio.nombre = %s, Edificio.topic = %s WHERE Edificio.idEdificio = %s;"
+    dbDict['cursor'].execute(query, (edificio.getNombre(), edificio.getTopic(), edificio.getId()))
+    dbDict['db'].commit()
+
+    dao.closeDBConnection(dbDict)
+    return '0'
+
+def delEdificio(idEdificio: int):
+    dbDict = dao.openDBConnection()
+
+    dictAula = daoAula.getAulaByEdificio(idEdificio)
+    for i in dictAula:
+        query = "DELETE FROM Dato WHERE Dato.idAula = %s;"
+        dbDict['cursor'].execute(query, (dictAula[i].getId(), ))
+        dbDict['db'].commit()
+
+    query = "DELETE FROM Aula WHERE Aula.idEdificio = %s;"
+    dbDict['cursor'].execute(query, (idEdificio, ))
+    dbDict['db'].commit()
+
+    query = "DELETE FROM Edificio WHERE Edificio.idEdificio = %s;"
+    dbDict['cursor'].execute(query, (idEdificio, ))
+    dbDict['db'].commit()
+
+    dao.closeDBConnection(dbDict)
+    return '0'
 
 def __getDictValue(dictionary: dict, index: int):
     try:

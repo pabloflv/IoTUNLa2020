@@ -61,14 +61,8 @@
                             </li>
                             <li class="nav-item">
                                 <a href="/edificio/alta" class="nav-link">
-                                    <i class="nav-icon fas fa-tools"></i>
+                                    <i class="nav-icon fas fa-plus-circle"></i>
                                     <p>Alta Edificio</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/edificio/modificar" class="nav-link">
-                                    <i class="nav-icon fas fa-tools"></i>
-                                    <p>Modificación Edificio</p>
                                 </a>
                             </li>
                         </ul>
@@ -92,19 +86,19 @@
         </div>
         <!-- ./wrapper -->
         
-        <div id="divMdlUpdate">
-            <div class="modal fade" id="mdlUpdate" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+        <div id="divMdlForm">
+            <div class="modal fade" id="mdlForm" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header" style="background-color: #2d3032; border-bottom: 1px solid #2a2c2e;">
-                            <h5 class="dialogo-editar-title" id="dialogo-editar-title">Modificar edificio</h5>
+                            <h5 id="mdlFormTitulo">Formulario</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                 <span aria-hidden="true" style="color: #fff;text-shadow: 0 1px 0 #000;">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body" id="dialogo-editar-body" style="background-color: #40464b;">
-                            <form action="#" id="crearEmpleado" method="post">
-                                <div id="form-crear-modificar">
+                        <div class="modal-body" style="background-color: #40464b;">
+                            <form action="#" method="post">
+                                <div>
                                     <div class="form-row">
                                         <div class="form-group col" style="display: inline-flex;">
                                             <label for="txtNombreEdificio" class="col-sm-2 col-form-label" style="color: white;">Nombre</label>
@@ -121,8 +115,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="button" value="Modificar" class="btn btn-success"/>
-                                    <input type="button" value="Cancelar" class="btn btn-secondary"/>
+                                    <input id="mdlBtnConfirmar" type="button" value="" class="btn btn-success"/>
+                                    <input type="button" value="Cancelar" class="btn btn-secondary" onclick="$('#mdlForm').modal('hide');"/>
                                 </div>
                             </form>
                         </div>

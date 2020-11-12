@@ -17,7 +17,7 @@
 				$.ajax({
 					type: "POST",
 					url: "/api_rest/addDato",
-					data: JSON.stringify({ topicName: 'JoseHernandez/Aula1', tipo: 'Temperatura', dato: (Math.floor(Math.random() * 15) + 20), }),
+					data: JSON.stringify({ topicName: 'ManuelUgarte/Aula1', tipo: 'Temperatura', dato: (Math.floor(Math.random() * 15) + 20), }),
 					contentType: "application/json; charset=utf-8",
 					dataType: "json",
 					success: function(data) { console.log(JSON.stringify(data)); },
@@ -29,7 +29,7 @@
 				$.ajax({
 					type: "POST",
 					url: "/api_rest/addDato",
-					data: JSON.stringify({ topicName: 'JoseHernandez/Aula1', tipo: 'Aire', dato: (Math.floor(Math.random() * 400) + 400), }),
+					data: JSON.stringify({ topicName: 'ManuelUgarte/Aula1', tipo: 'Aire', dato: (Math.floor(Math.random() * 400) + 400), }),
 					contentType: "application/json; charset=utf-8",
 					dataType: "json",
 					success: function(data) { console.log(JSON.stringify(data)); },

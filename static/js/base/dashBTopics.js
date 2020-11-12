@@ -80,7 +80,7 @@ function loadTopics(section, topics)
         button = document.createElement("button");
         button.setAttribute("type", "button");
         button.setAttribute("href", "#");
-        button.setAttribute("onclick", "loadMdlUpdateValues(" + topics[i]._Edificio__id + ");$('#mdlUpdate').modal('show');");
+        button.setAttribute("onclick", "loadMdlUpdateValues(" + topics[i]._Edificio__id + ");$('#mdlForm').modal('show');");
         button.setAttribute("class", "btn btn-secondary ml-4 mr-4");
         button.textContent = "Modificar";
         td.appendChild(button);
@@ -88,6 +88,7 @@ function loadTopics(section, topics)
         button = document.createElement("button");
         button.setAttribute("type", "button");
         button.setAttribute("href", "#");
+        button.setAttribute("onclick", "loadMdlDeleteValues(" + topics[i]._Edificio__id + ");$('#mdlForm').modal('show');");
         button.setAttribute("class", "btn btn-secondary ml-4");
         button.textContent = "Eliminar";
         td.appendChild(button);
@@ -105,6 +106,54 @@ function loadTopics(section, topics)
 function loadMdlUpdateValues(idEdificio) {
     var edificio = dictEdificio[idEdificio];
     
-    document.getElementById('txtNombreEdificio').value = edificio._Edificio__nombre;
-    document.getElementById('txtTopicEdificio').value = edificio._Edificio__topic;
+    $('#mdlFormTitulo')[0].firstChild.textContent = "Modificar Edificio";
+    $('#mdlBtnConfirmar')[0].value = "Modificar";
+    $('#mdlBtnConfirmar')[0].setAttribute("onclick","modEdificio(" + idEdificio + ");");
+    $('#txtNombreEdificio')[0].disabled = false;
+    $('#txtTopicEdificio')[0].disabled = false;
+    $('#txtNombreEdificio')[0].value = edificio._Edificio__nombre;
+    $('#txtTopicEdificio')[0].value = edificio._Edificio__topic;
+}
+
+function loadMdlDeleteValues(idEdificio) {
+    var edificio = dictEdificio[idEdificio];
+    
+    $('#mdlFormTitulo')[0].firstChild.textContent = "Eliminar Edificio";
+    $('#mdlBtnConfirmar')[0].value = "Eliminar";
+    $('#mdlBtnConfirmar')[0].setAttribute("onclick","delEdificio(" + idEdificio + ");");
+    $('#txtNombreEdificio')[0].disabled = true;
+    $('#txtTopicEdificio')[0].disabled = true;
+    $('#txtNombreEdificio')[0].value = edificio._Edificio__nombre;
+    $('#txtTopicEdificio')[0].value = edificio._Edificio__topic;
+}
+
+function modEdificio(idEdificio) {
+    var edificio = dictEdificio[idEdificio];
+    var newEdificio = {'_Edificio__id': idEdificio, '_Edificio__lstAula': [], '_Edificio__nombre': $('#txtNombreEdificio')[0].value, '_Edificio__topic': $('#txtTopicEdificio')[0].value};
+    
+    if (edificio._Edificio__nombre.normalize() !== newEdificio._Edificio__nombre.normalize() || edificio._Edificio__topic.normalize() !== newEdificio._Edificio__topic.normalize()) {
+        $.ajax({
+            type: "POST",
+            url: "/api_rest/modEdificio",
+            data: JSON.stringify(newEdificio),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(data) { location.reload(true); },
+            error: function(errMsg) { alert(errMsg); }
+        });
+    }
+}
+
+function delEdificio(idEdificio) {
+    var edificio = dictEdificio[idEdificio];
+    
+    $.ajax({
+        type: "POST",
+        url: "/api_rest/delEdificio",
+        data: JSON.stringify(edificio),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(data) { location.reload(true); },
+        error: function(errMsg) { alert(errMsg); }
+    });
 }
